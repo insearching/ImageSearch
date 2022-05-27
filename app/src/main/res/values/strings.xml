@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Image Search</string>
+    <string name="search_query">Search query</string>
+    <string name="search">Search</string>
+    <string name="large_image">large_image</string>
+    <string name="likes">likes</string>
+    <string name="thumbnail_icon">thumbnail_icon</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/imageListFragment">
+
+    <fragment
+        android:id="@+id/imageListFragment"
+        android:name="com.payback.imagesearch.ui.imageList.ImageListFragment"
+        android:label="ImageListFragment">
+
+        <action
+            android:id="@+id/action_imageListFragment_to_imageDetailsFragment"
+            app:destination="@id/imageDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/imageDetailsFragment"
+        android:name="com.payback.imagesearch.ui.imageDetails.ImageDetailsFragment"
+        android:label="ImageDetailsFragment">
+
+        <argument
+            android:name="photoId"
+            app:argType="integer" />
+    </fragment>
+</navigation>
