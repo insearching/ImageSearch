@@ -14,7 +14,7 @@ import javax.inject.Inject
 class ImageDetailsViewModel @Inject constructor(private val loadImagesUseCase: LoadImagesUseCase) :
     ViewModel() {
 
-    private val imageItemData = MutableLiveData<Int>()
+    private val imageItemData = MutableLiveData<Long>()
 
     private val data = imageItemData.switchMap {
         liveData {
@@ -52,7 +52,7 @@ class ImageDetailsViewModel @Inject constructor(private val loadImagesUseCase: L
             }
         }
 
-    fun init(photoId: Int) {
+    fun init(photoId: Long) {
         viewModelScope.launch {
             imageItemData.value = photoId
         }

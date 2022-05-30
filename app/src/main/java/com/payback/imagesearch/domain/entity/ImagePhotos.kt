@@ -19,7 +19,7 @@ data class Hit(
     @SerializedName("downloads")
     val downloads: Int,
     @SerializedName("id")
-    val id: Int,
+    val id: Long,
     @SerializedName("imageHeight")
     val imageHeight: Int,
     @SerializedName("imageSize")

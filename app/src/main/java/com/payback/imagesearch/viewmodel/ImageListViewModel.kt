@@ -2,7 +2,7 @@ package com.payback.imagesearch.viewmodel
 
 import androidx.lifecycle.*
 import com.insearching.revolutrate.utils.network.Status
-import com.payback.imagesearch.domain.entity.ImagePhotos
+import com.payback.imagesearch.domain.entity.Hit
 import com.payback.imagesearch.domain.usecase.LoadImagesUseCase
 import com.payback.imagesearch.ui.imageList.ImageListViewState
 import com.payback.imagesearch.util.network.Resource
@@ -14,13 +14,11 @@ import javax.inject.Inject
 class ImageListViewModel @Inject constructor(private val loadImagesUseCase: LoadImagesUseCase) :
     ViewModel() {
 
-    var searchText: String = ""
-
-    private val initialState = MutableLiveData<Resource<ImagePhotos>>()
+    private val initialState = MutableLiveData<Resource<List<Hit>>>()
 
     private val searchQuery = MutableLiveData<String>()
 
-    private var cachedData: ImagePhotos? = null
+    private var cachedData: List<Hit>? = null
 
     private val data = searchQuery.switchMap {
         liveData {
@@ -30,7 +28,7 @@ class ImageListViewModel @Inject constructor(private val loadImagesUseCase: Load
     }
 
     val viewState: LiveData<ImageListViewState> = MediatorLiveData<ImageListViewState>().apply {
-        var resource: Resource<ImagePhotos> = Resource.LOADING
+        var resource: Resource<List<Hit>> = Resource.LOADING
 
         fun error() =
             if (resource.status == Status.ERROR) {
@@ -43,7 +41,7 @@ class ImageListViewModel @Inject constructor(private val loadImagesUseCase: Load
             value = ImageListViewState(
                 isLoading = resource.isLoading,
                 error = error(),
-                imagePhotos = resource.data
+                photos = resource.data
             )
         }
 
@@ -63,9 +61,16 @@ class ImageListViewModel @Inject constructor(private val loadImagesUseCase: Load
         initialState.value = Resource.success(cachedData)
     }
 
-    fun loadImages() {
-        viewModelScope.launch {
-            searchQuery.value = searchText
+    fun loadImages(obj: Any): Any {
+        val query = obj as? String
+        query?.let {
+            viewModelScope.launch {
+                if (it.isBlank() || it == searchQuery.value) {
+                    return@launch
+                }
+                searchQuery.value = it
+            }
         }
+        return Unit
     }
 }

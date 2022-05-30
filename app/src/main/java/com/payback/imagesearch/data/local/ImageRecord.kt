@@ -2,12 +2,13 @@ package com.payback.imagesearch.data.local
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity
 data class ImageRecord(
     @PrimaryKey
-    val id: Int,
+    val id: Long,
     @ColumnInfo(name = "collections")
     val collections: Int,
     @ColumnInfo(name = "comments")

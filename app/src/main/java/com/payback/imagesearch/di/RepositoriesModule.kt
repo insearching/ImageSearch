@@ -16,7 +16,13 @@ object RepositoriesModule {
 
     @Provides
     @Singleton
-    fun provideImageRepository(api: DigitalApiPixabay, dao: ImageRecordDao): ImageRepository =
-        ImageRepositoryImpl(api, dao)
+    fun provideImageRepository(
+        api: DigitalApiPixabay,
+        imageRecordsDao: ImageRecordDao,
+    ): ImageRepository =
+        ImageRepositoryImpl(
+            api,
+            imageRecordsDao,
+        )
 
 }

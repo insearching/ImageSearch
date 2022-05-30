@@ -19,54 +19,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
-        android:background="@color/white"
+        android:background="@color/background"
+        android:padding="12dp"
         tools:context=".ui.RatesActivity">
 
-        <EditText
+        <androidx.appcompat.widget.SearchView
             android:id="@+id/search_bar"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:autofillHints="Search query"
-            android:background="@drawable/bg_edittext"
-            android:hint="@string/search_query"
-            android:inputType="text"
-            android:text="@={viewModel.searchText}"
+            android:background="@color/white"
+            android:elevation="10dp"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/search_button"
-            app:layout_constraintEnd_toStartOf="@+id/search_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/search_button" />
-
-        <Button
-            android:id="@+id/search_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/bg_button"
-            android:onClick="@{()-> viewModel.loadImages() }"
-            android:text="@string/search"
-            android:textColor="@color/white"
+            app:defaultQueryHint="@string/search_query"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:onSearch="@{(query) -> viewModel.loadImages(query)}"
+            app:queryHint="@string/search_query"
+            app:searchClickable="@{viewState.searchClickable}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/image_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:elevation="10dp"
             android:visibility="@{viewState.dataVisible}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_bar"
+            android:background="@color/background"
             tools:listitem="@layout/item_image" />
 
         <ProgressBar
@@ -84,7 +67,7 @@
             android:id="@+id/error_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewState.errorText}"
+            android:text="@string/no_images_found"
             android:textSize="28sp"
             android:textStyle="bold"
             android:visibility="@{viewState.errorVisible}"
@@ -92,6 +75,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Error occurred"/>
+            tools:text="Error occurred" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

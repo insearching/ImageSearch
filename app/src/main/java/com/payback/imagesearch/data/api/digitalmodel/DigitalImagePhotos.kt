@@ -10,7 +10,7 @@ data class DigitalHit(
     val collections: Int,
     val comments: Int,
     val downloads: Int,
-    val id: Int,
+    val id: Long,
     val imageHeight: Int,
     val imageSize: Int,
     val imageWidth: Int,

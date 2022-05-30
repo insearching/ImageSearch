@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
-        android:background="@color/white"
+        android:background="@color/background"
         tools:context=".ui.RatesActivity">
 
         <ImageView
@@ -49,65 +49,60 @@
             android:id="@+id/image_tags"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_marginBottom="8dp"
             android:gravity="center"
             android:padding="8dp"
             android:text="@{viewState.item.tags}"
             android:textColor="@color/grey"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/bottom_layout"
+            app:layout_constraintBottom_toTopOf="@+id/downloads_count"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/large_image"
             app:layout_constraintTop_toBottomOf="@+id/author_name"
             tools:text="image tags will be here" />
 
-        <RelativeLayout
-            android:id="@+id/bottom_layout"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/likes_count"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:padding="8dp"
+            android:text="@{String.valueOf(viewState.item.likes)}"
+            android:textSize="22sp"
+            app:drawableStartCompat="@drawable/ic_thumb"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="3 likes" />
+
+        <TextView
+            android:id="@+id/downloads_count"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:text="@{String.valueOf(viewState.item.downloads)}"
+            android:textSize="22sp"
+            app:drawableStartCompat="@drawable/ic_downloads"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/comments_count"
+            app:layout_constraintStart_toEndOf="@+id/likes_count"
+            tools:text="1 downloads" />
+
+        <TextView
+            android:id="@+id/comments_count"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:text='@{String.valueOf(viewState.item.comments)}'
+            android:textSize="22sp"
+            app:drawableStartCompat="@drawable/ic_comment"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <TextView
-                android:id="@+id/likes_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="@{String.valueOf(viewState.item.likes)}"
-                android:textSize="22sp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                app:drawableStartCompat="@drawable/ic_thumb"
-                tools:text="3 likes" />
-
-            <TextView
-                android:id="@+id/downloads_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:padding="8dp"
-                android:text="@{String.valueOf(viewState.item.downloads)}"
-                android:textSize="22sp"
-                app:drawableStartCompat="@drawable/ic_downloads"
-                tools:text="1 downloads" />
-
-            <TextView
-                android:id="@+id/comments_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:padding="8dp"
-                android:text='@{String.valueOf(viewState.item.comments)}'
-                android:textSize="22sp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                app:drawableStartCompat="@drawable/ic_comment"
-                tools:text="14 comments" />
-
-        </RelativeLayout>
+            tools:text="14 comments" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

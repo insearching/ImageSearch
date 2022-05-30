@@ -12,11 +12,14 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.payback.imagesearch.R
+import com.payback.imagesearch.data.mapper.DomainToObjectMapper.toListItem
 import com.payback.imagesearch.databinding.FragmentImageListBinding
-import com.payback.imagesearch.ui.imageList.adapter.DomainToObjectMapper.toListItem
+import com.payback.imagesearch.ui.components.MarginItemDecoration
 import com.payback.imagesearch.ui.imageList.adapter.ImageListAdapter
 import com.payback.imagesearch.viewmodel.ImageListViewModel
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class ImageListFragment : Fragment() {
@@ -57,12 +60,19 @@ class ImageListFragment : Fragment() {
 
             imageList.layoutManager = requireContext().layoutManager
             imageList.adapter = adapter
+            imageList.addItemDecoration(
+                MarginItemDecoration(
+                    resources.getDimensionPixelSize(R.dimen.margin),
+                    spanCount = if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) 1 else 2,
+                )
+            )
+
             viewModel = imageListViewModel
         }
 
         imageListViewModel.initModel()
         imageListViewModel.viewState.observe(viewLifecycleOwner) {
-            adapter.updateItems(it.imagePhotos?.hits?.asSequence()?.map { hit -> hit.toListItem }
+            adapter.updateItems(it?.photos?.asSequence()?.map { hit -> hit.toListItem }
                 ?.toList() ?: emptyList())
             binding.viewState = it
         }

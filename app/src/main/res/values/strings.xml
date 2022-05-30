@@ -5,4 +5,5 @@
     <string name="large_image">large_image</string>
     <string name="likes">likes</string>
     <string name="thumbnail_icon">thumbnail_icon</string>
+    <string name="no_images_found">No images found</string>
 </resources>

@@ -20,6 +20,6 @@
 
         <argument
             android:name="photoId"
-            app:argType="integer" />
+            app:argType="long" />
     </fragment>
 </navigation>

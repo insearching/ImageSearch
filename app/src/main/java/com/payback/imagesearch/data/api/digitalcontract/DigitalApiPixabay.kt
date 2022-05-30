@@ -8,8 +8,8 @@ import retrofit2.http.Query
 interface DigitalApiPixabay {
 
     @GET(".")
-    suspend fun getImages(
-        @Query("q") searchQuery: String,
+    suspend fun loadImages(
+        @Query("q", encoded = true) searchQuery: String,
         @Query("image_type") selectedOfferId: String = "photo",
     ): Response<DigitalImagePhotos>
 }

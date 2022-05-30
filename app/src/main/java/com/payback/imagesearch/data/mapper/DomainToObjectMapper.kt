@@ -1,4 +1,4 @@
-package com.payback.imagesearch.ui.imageList.adapter
+package com.payback.imagesearch.data.mapper
 
 import com.payback.imagesearch.domain.entity.Hit
 import com.payback.imagesearch.ui.imageDetails.ImageDetailsItem
