@@ -6,5 +6,4 @@ import coil.ImageLoader
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class ImageSearchApp : Application() {
-}
+class ImageSearchApp : Application()

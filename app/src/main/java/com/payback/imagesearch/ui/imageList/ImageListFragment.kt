@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -30,6 +32,8 @@ class ImageListFragment : Fragment() {
 
     private val binding get() = _binding!!
 
+    private val initialQuery = "fruits"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,10 +51,12 @@ class ImageListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = ImageListAdapter { listItem ->
-            val action =
-                ImageListFragmentDirections
-                    .actionImageListFragmentToImageDetailsFragment(listItem.id)
-            view.findNavController().navigate(action)
+            showDialog {
+                val action =
+                    ImageListFragmentDirections
+                        .actionImageListFragmentToImageDetailsFragment(listItem.id)
+                view.findNavController().navigate(action)
+            }
         }
         with(binding) {
             imageList.layoutManager =
@@ -68,14 +74,29 @@ class ImageListFragment : Fragment() {
             )
 
             viewModel = imageListViewModel
+
+            searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    query?.let { imageListViewModel.loadImages(it) }
+                    return true
+                }
+
+                override fun onQueryTextChange(query: String?): Boolean {
+                    return true
+                }
+            })
         }
 
-        imageListViewModel.initModel()
-        imageListViewModel.viewState.observe(viewLifecycleOwner) {
-            adapter.updateItems(it?.photos?.asSequence()?.map { hit -> hit.toListItem }
-                ?.toList() ?: emptyList())
-            binding.viewState = it
+        with(imageListViewModel) {
+            initModel()
+            loadImages(initialQuery)
+            viewState.observe(viewLifecycleOwner) {
+                adapter.updateItems(it?.photos?.asSequence()?.map { hit -> hit.toListItem }
+                    ?.toList() ?: emptyList())
+                binding.viewState = it
+            }
         }
+
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -86,6 +107,22 @@ class ImageListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun showDialog(proceedCallback: () -> Unit) {
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.info)
+            .setMessage(R.string.dialog_proceed_message)
+            .setPositiveButton(
+            android.R.string.ok
+        ) { dialog, _ ->
+            dialog.dismiss()
+            proceedCallback()
+        }.setNegativeButton(
+            android.R.string.cancel
+        ) { dialog, _ ->
+            dialog.dismiss()
+        }.create().show()
     }
 
     private val Context.layoutManager: RecyclerView.LayoutManager

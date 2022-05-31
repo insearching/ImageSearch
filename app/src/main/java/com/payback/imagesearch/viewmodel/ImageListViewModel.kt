@@ -61,16 +61,12 @@ class ImageListViewModel @Inject constructor(private val loadImagesUseCase: Load
         initialState.value = Resource.success(cachedData)
     }
 
-    fun loadImages(obj: Any): Any {
-        val query = obj as? String
-        query?.let {
-            viewModelScope.launch {
-                if (it.isBlank() || it == searchQuery.value) {
-                    return@launch
-                }
-                searchQuery.value = it
+    fun loadImages(query: String) {
+        viewModelScope.launch {
+            if (query.isBlank() || query == searchQuery.value) {
+                return@launch
             }
+            searchQuery.value = query
         }
-        return Unit
     }
 }

@@ -32,20 +32,6 @@ fun ImageView.loadImage(url: String?) {
     }
 }
 
-@BindingAdapter("onSearch")
-fun SearchView.onSearch(callback: (String) -> Unit) {
-    setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-        override fun onQueryTextSubmit(query: String?): Boolean {
-            query?.let { callback(it) }
-            return true
-        }
-
-        override fun onQueryTextChange(query: String?): Boolean {
-            return true
-        }
-    })
-}
-
 @BindingAdapter("searchClickable")
 fun SearchView.searchClickable(isClickable: Boolean) {
     setOnClickListener { isIconified = !isClickable }

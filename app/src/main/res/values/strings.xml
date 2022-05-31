@@ -6,4 +6,6 @@
     <string name="likes">likes</string>
     <string name="thumbnail_icon">thumbnail_icon</string>
     <string name="no_images_found">No images found</string>
+    <string name="dialog_proceed_message">Do you want to see more details?</string>
+    <string name="info">Info</string>
 </resources>
