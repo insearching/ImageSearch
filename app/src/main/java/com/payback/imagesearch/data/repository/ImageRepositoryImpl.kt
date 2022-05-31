@@ -31,7 +31,7 @@ class ImageRepositoryImpl @Inject constructor(
                 val records = searchQuery.split(" ")
                     .asSequence()
                     .map { "%$it%" }.toList()
-                    .map { tag -> imageRecordsDao.findRecordsByTags(tag) }
+                    .map { tag -> imageRecordsDao.findRecordsByTag(tag) ?: emptyList() }
                     .toList()
                     .flatten()
                     .distinct()
@@ -41,8 +41,10 @@ class ImageRepositoryImpl @Inject constructor(
             }
         }
 
-    override suspend fun getImageRecordById(id: Long): Resource<Hit> =
+    override suspend fun loadImageDetails(id: Long): Resource<Hit> =
         withContext(Dispatchers.IO) {
-            return@withContext Resource.success(imageRecordsDao.findById(id).toDomainModel)
+            return@withContext imageRecordsDao.findById(id)?.let {
+                Resource.success(it.toDomainModel)
+            } ?: Resource.error("No image found")
         }
 }

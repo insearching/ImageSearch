@@ -1,7 +1,7 @@
 package com.payback.imagesearch.ui.imageDetails
 
 data class ImageDetailsItem(
-    val image: String,
+    val largeImageLink: String,
     val userName: String,
     val tags: String,
     val likes: Int,

@@ -7,5 +7,5 @@ import com.payback.imagesearch.util.network.Resource
 interface LoadImagesUseCase {
     suspend fun loadImages(query: String): Resource<List<Hit>>
 
-    suspend fun loadImageData(id: Long): Resource<ImageDetailsItem>
+    suspend fun loadImageDetails(id: Long): Resource<ImageDetailsItem>
 }

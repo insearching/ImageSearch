@@ -6,5 +6,5 @@ import com.payback.imagesearch.util.network.Resource
 interface ImageRepository {
     suspend fun loadImages(searchQuery: String): Resource<List<Hit>>
 
-    suspend fun getImageRecordById(id: Long): Resource<Hit>
+    suspend fun loadImageDetails(id: Long): Resource<Hit>
 }

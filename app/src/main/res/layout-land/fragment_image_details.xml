@@ -27,7 +27,7 @@
             android:layout_marginBottom="8dp"
             android:contentDescription="@string/large_image"
             android:elevation="30dp"
-            app:imageUrl="@{viewState.item.image}"
+            app:imageUrl="@{viewState.item.largeImageLink}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/label_layout"
             app:layout_constraintStart_toStartOf="parent"

@@ -19,7 +19,7 @@ class ImageDetailsViewModel @Inject constructor(private val loadImagesUseCase: L
     private val data = imageItemData.switchMap {
         liveData {
             emit(Resource.LOADING)
-            emit(loadImagesUseCase.loadImageData(it))
+            emit(loadImagesUseCase.loadImageDetails(it))
         }
     }
 

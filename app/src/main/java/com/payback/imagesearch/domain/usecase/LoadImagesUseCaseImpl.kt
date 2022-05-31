@@ -15,8 +15,8 @@ class LoadImagesUseCaseImpl @Inject constructor(
     override suspend fun loadImages(query: String): Resource<List<Hit>> =
         imageRepository.loadImages(query)
 
-    override suspend fun loadImageData(id: Long): Resource<ImageDetailsItem> {
-        val resource = imageRepository.getImageRecordById(id)
+    override suspend fun loadImageDetails(id: Long): Resource<ImageDetailsItem> {
+        val resource = imageRepository.loadImageDetails(id)
         return resource.data?.let {
             Resource.success(it.toItemDetails)
         } ?: Resource.error(message = resource.message ?: "")

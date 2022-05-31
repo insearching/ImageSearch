@@ -15,7 +15,7 @@ object DomainToObjectMapper {
 
     val Hit.toItemDetails
         get() = ImageDetailsItem(
-            image = largeImageURL,
+            largeImageLink = largeImageURL,
             userName = user,
             tags = tags,
             likes = likes,
